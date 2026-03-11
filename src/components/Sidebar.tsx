@@ -68,7 +68,7 @@ const navItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-56 bg-sidebar border-r border-default flex flex-col shrink-0">
+    <aside className="w-64 bg-sidebar border-r border-default flex flex-col shrink-0">
       {/* App logo and name */}
       <div className="p-4 border-b border-default flex items-center gap-2">
         <Flame className="w-7 h-7 text-flame-500" />
