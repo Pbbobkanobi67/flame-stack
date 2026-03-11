@@ -1,101 +1,135 @@
 /**
  * ProductList.tsx
  *
- * The main inventory page. Shows all your products in a table with:
- * - Name, SKU, price, cost, profit margin, and stock level
- * - Color-coded stock warnings (amber = low, red = out of stock)
- * - Buttons to add, edit, and delete products
- * - Quick link to the recipe builder and cost calculator
+ * The Products page — your product catalog. Focused on what you sell:
+ * name, category, price, cost, profit margin, and active status.
+ * Use this to manage your catalog — add, edit, and delete products.
+ *
+ * The Inventory page (InventoryList.tsx) focuses on stock levels instead.
  *
  * YouTube Episode: Week 3 — "Build a Shopify Alternative With Claude Code"
  *
  * To customize: Change the columns in the table, or add filtering/sorting.
  */
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Package,
   Plus,
   Pencil,
   Trash2,
-  Calculator,
   Search,
   DollarSign,
-  AlertTriangle,
-  Archive,
+  TrendingUp,
+  ArrowUpDown,
+  ArrowUp,
+  ArrowDown,
 } from 'lucide-react'
 import { useAppStore } from '../../lib/store'
 import PageHeader from '../../components/PageHeader'
 import StatCard from '../../components/StatCard'
+import type { Product } from '../../types'
+
+// Which column is being sorted, and in which direction
+type SortKey = 'name' | 'category' | 'price' | 'cost' | 'margin'
+type SortDir = 'asc' | 'desc'
+
+// Helper to get the margin value for sorting
+function getMargin(p: Product) {
+  return p.price > 0 ? ((p.price - p.cost) / p.price) * 100 : 0
+}
 
 export default function ProductList() {
   const products = useAppStore((state) => state.products)
   const deleteProduct = useAppStore((state) => state.deleteProduct)
 
-  // Search filter — lets you type to find products by name or SKU
   const [search, setSearch] = useState('')
-  const filtered = products.filter(
-    (p) =>
-      p.name.toLowerCase().includes(search.toLowerCase()) ||
-      p.sku.toLowerCase().includes(search.toLowerCase())
-  )
+  const [sortKey, setSortKey] = useState<SortKey>('name')
+  const [sortDir, setSortDir] = useState<SortDir>('asc')
 
-  // Calculate summary stats
-  const totalUnits = products.reduce((sum, p) => sum + p.stock_quantity, 0)
-  const inventoryValue = products.reduce((sum, p) => sum + p.price * p.stock_quantity, 0)
-  const lowStockCount = products.filter(
-    (p) => p.stock_quantity <= p.low_stock_threshold
-  ).length
+  // Toggle sort: click same column flips direction, click new column sorts asc
+  function handleSort(key: SortKey) {
+    if (sortKey === key) {
+      setSortDir(sortDir === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortKey(key)
+      setSortDir('asc')
+    }
+  }
 
-  // Confirm before deleting a product
+  // Sort icon for column headers
+  function SortIcon({ column }: { column: SortKey }) {
+    if (sortKey !== column) return <ArrowUpDown className="w-3 h-3 opacity-30" />
+    return sortDir === 'asc'
+      ? <ArrowUp className="w-3 h-3 text-flame-400" />
+      : <ArrowDown className="w-3 h-3 text-flame-400" />
+  }
+
+  // Filter then sort
+  const filtered = useMemo(() => {
+    let result = products.filter(
+      (p) =>
+        p.name.toLowerCase().includes(search.toLowerCase()) ||
+        p.sku.toLowerCase().includes(search.toLowerCase()) ||
+        p.category.toLowerCase().includes(search.toLowerCase())
+    )
+
+    result.sort((a, b) => {
+      let cmp = 0
+      switch (sortKey) {
+        case 'name': cmp = a.name.localeCompare(b.name); break
+        case 'category': cmp = a.category.localeCompare(b.category); break
+        case 'price': cmp = a.price - b.price; break
+        case 'cost': cmp = a.cost - b.cost; break
+        case 'margin': cmp = getMargin(a) - getMargin(b); break
+      }
+      return sortDir === 'desc' ? -cmp : cmp
+    })
+
+    return result
+  }, [products, search, sortKey, sortDir])
+
+  // Summary stats
+  const totalProducts = products.length
+  const avgPrice = totalProducts > 0
+    ? products.reduce((sum, p) => sum + p.price, 0) / totalProducts
+    : 0
+  const avgMargin = totalProducts > 0
+    ? products.reduce((sum, p) => sum + getMargin(p), 0) / totalProducts
+    : 0
+  const totalRevenue = products.reduce((sum, p) => sum + p.price * p.stock_quantity, 0)
+
   function handleDelete(id: string, name: string) {
     if (window.confirm(`Delete "${name}"? This cannot be undone.`)) {
       deleteProduct(id)
     }
   }
 
+  const thClass = 'px-4 py-3 font-medium cursor-pointer select-none hover:text-heading transition-colors'
+
   return (
     <div>
       <PageHeader
-        title="Inventory"
-        subtitle="Manage your products and stock levels"
+        title="Products"
+        subtitle="Manage your product catalog"
         action={
-          <div className="flex gap-2">
-            <Link
-              to="/inventory/costs"
-              className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg bg-card-hover text-body hover:bg-badge transition-colors"
-            >
-              <Calculator className="w-4 h-4" />
-              Cost Calculator
-            </Link>
-            <Link
-              to="/inventory/new"
-              className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg bg-flame-500 text-white hover:bg-flame-400 transition-colors font-medium"
-            >
-              <Plus className="w-4 h-4" />
-              Add Product
-            </Link>
-          </div>
+          <Link
+            to="/products/new"
+            className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg bg-flame-500 text-white hover:bg-flame-400 transition-colors font-medium"
+          >
+            <Plus className="w-4 h-4" />
+            Add Product
+          </Link>
         }
       />
 
       {/* Summary cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <StatCard label="Total Products" value={products.length} icon={Package} />
-        <StatCard label="Total Units" value={totalUnits} icon={Archive} trend="up" />
-        <StatCard
-          label="Inventory Value"
-          value={`$${inventoryValue.toFixed(2)}`}
-          icon={DollarSign}
-          trend="up"
-        />
-        <StatCard
-          label="Low Stock"
-          value={lowStockCount}
-          icon={AlertTriangle}
-          trend={lowStockCount > 0 ? 'warning' : 'neutral'}
-        />
+        <StatCard label="Total Products" value={totalProducts} icon={Package} />
+        <StatCard label="Avg Price" value={`$${avgPrice.toFixed(2)}`} icon={DollarSign} />
+        <StatCard label="Avg Margin" value={`${avgMargin.toFixed(0)}%`} icon={TrendingUp} trend="up" />
+        <StatCard label="Revenue Potential" value={`$${totalRevenue.toFixed(0)}`} icon={DollarSign} trend="up" />
       </div>
 
       {/* Search bar */}
@@ -103,38 +137,40 @@ export default function ProductList() {
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
         <input
           type="text"
-          placeholder="Search products by name or SKU..."
+          placeholder="Search by name, SKU, or category..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="w-full pl-10 pr-4 py-2.5 bg-input border border-default rounded-lg text-sm text-heading placeholder:text-faint focus:outline-none focus:border-flame-500 transition-colors"
         />
       </div>
 
-      {/* Product table */}
+      {/* Product table with sortable columns */}
       <div className="bg-card border border-default rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-muted bg-table-header">
-                <th className="px-4 py-3 font-medium">Product</th>
-                <th className="px-4 py-3 font-medium">SKU</th>
-                <th className="px-4 py-3 font-medium text-right">Price</th>
-                <th className="px-4 py-3 font-medium text-right">Cost</th>
-                <th className="px-4 py-3 font-medium text-right">Margin</th>
-                <th className="px-4 py-3 font-medium text-right">Stock</th>
+                <th className={thClass} onClick={() => handleSort('name')}>
+                  <span className="inline-flex items-center gap-1">Product <SortIcon column="name" /></span>
+                </th>
+                <th className={thClass} onClick={() => handleSort('category')}>
+                  <span className="inline-flex items-center gap-1">Category <SortIcon column="category" /></span>
+                </th>
+                <th className={`${thClass} text-right`} onClick={() => handleSort('price')}>
+                  <span className="inline-flex items-center gap-1 justify-end">Price <SortIcon column="price" /></span>
+                </th>
+                <th className={`${thClass} text-right`} onClick={() => handleSort('cost')}>
+                  <span className="inline-flex items-center gap-1 justify-end">Cost <SortIcon column="cost" /></span>
+                </th>
+                <th className={`${thClass} text-right`} onClick={() => handleSort('margin')}>
+                  <span className="inline-flex items-center gap-1 justify-end">Margin <SortIcon column="margin" /></span>
+                </th>
                 <th className="px-4 py-3 font-medium text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
               {filtered.map((product) => {
-                const margin = (
-                  ((product.price - product.cost) / product.price) *
-                  100
-                ).toFixed(0)
-
-                const isLow = product.stock_quantity <= product.low_stock_threshold
-                const isOut = product.stock_quantity === 0
-
+                const margin = getMargin(product).toFixed(0)
                 return (
                   <tr
                     key={product.id}
@@ -142,11 +178,9 @@ export default function ProductList() {
                   >
                     <td className="px-4 py-3">
                       <div className="text-heading font-medium">{product.name}</div>
-                      <div className="text-faint text-xs mt-0.5">{product.category}</div>
+                      <div className="text-faint text-xs mt-0.5">{product.sku}</div>
                     </td>
-                    <td className="px-4 py-3 text-muted font-mono text-xs">
-                      {product.sku}
-                    </td>
+                    <td className="px-4 py-3 text-muted">{product.category}</td>
                     <td className="px-4 py-3 text-right text-heading">
                       ${product.price.toFixed(2)}
                     </td>
@@ -157,22 +191,9 @@ export default function ProductList() {
                       {margin}%
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <span
-                        className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold ${
-                          isOut
-                            ? 'bg-danger-500/20 text-danger-500'
-                            : isLow
-                              ? 'bg-amber-500/20 text-amber-500'
-                              : 'bg-success-500/20 text-success-500'
-                        }`}
-                      >
-                        {product.stock_quantity}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <Link
-                          to={`/inventory/${product.id}/edit`}
+                          to={`/products/${product.id}/edit`}
                           className="p-1.5 rounded-lg text-muted hover:text-heading hover:bg-card-hover transition-colors"
                           title="Edit product"
                         >
@@ -192,7 +213,7 @@ export default function ProductList() {
               })}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-4 py-12 text-center text-faint">
+                  <td colSpan={6} className="px-4 py-12 text-center text-faint">
                     {search
                       ? `No products match "${search}"`
                       : 'No products yet. Click "Add Product" to get started.'}

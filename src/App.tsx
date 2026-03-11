@@ -20,6 +20,7 @@ import AdminLayout from './components/AdminLayout'
 import StoreLayout from './components/StoreLayout'
 import Dashboard from './modules/dashboard/Dashboard'
 import ProductList from './modules/inventory/ProductList'
+import InventoryList from './modules/inventory/InventoryList'
 import ProductForm from './modules/inventory/ProductForm'
 import RecipeBuilder from './modules/inventory/RecipeBuilder'
 import CostCalculator from './modules/inventory/CostCalculator'
@@ -48,11 +49,13 @@ export default function App() {
           {/* Shipping — Week 10 */}
           <Route path="/shipping" element={<ComingSoon module="Ship Order" episode={10} />} />
 
-          {/* Products & Inventory module — BUILT */}
+          {/* Products — catalog management (BUILT) */}
           <Route path="/products" element={<ProductList />} />
-          <Route path="/inventory" element={<ProductList />} />
-          <Route path="/inventory/new" element={<ProductForm />} />
-          <Route path="/inventory/:id/edit" element={<ProductForm />} />
+          <Route path="/products/new" element={<ProductForm />} />
+          <Route path="/products/:id/edit" element={<ProductForm />} />
+
+          {/* Inventory — stock levels and supply (BUILT) */}
+          <Route path="/inventory" element={<InventoryList />} />
           <Route path="/inventory/:id/recipe" element={<RecipeBuilder />} />
           <Route path="/inventory/costs" element={<CostCalculator />} />
 

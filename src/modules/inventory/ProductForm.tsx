@@ -83,7 +83,7 @@ export default function ProductForm() {
       })
     }
 
-    navigate('/inventory')
+    navigate('/products')
   }
 
   // Shared CSS for input fields — keeps the form consistent
@@ -98,7 +98,7 @@ export default function ProductForm() {
         subtitle={isEditing ? 'Update product details' : 'Add a new product to your catalog'}
         action={
           <button
-            onClick={() => navigate('/inventory')}
+            onClick={() => navigate('/products')}
             className="flex items-center gap-2 px-4 py-2 text-sm text-muted hover:text-heading transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />

@@ -47,7 +47,7 @@ const navItems = [
   { to: '/shipping', icon: Truck, label: 'Ship Order', built: false, episode: 10 },
 
   // --- Products & Inventory ---
-  { to: '/products', icon: Package, label: 'Products', built: true, alias: '/inventory' },
+  { to: '/products', icon: Package, label: 'Products', built: true },
   { to: '/inventory', icon: Boxes, label: 'Inventory', built: true },
   { to: '/discounts', icon: Tag, label: 'Discounts', built: false, episode: 10 },
   { to: '/bundles', icon: Gift, label: 'Gift Sets', built: false, episode: 10 },
