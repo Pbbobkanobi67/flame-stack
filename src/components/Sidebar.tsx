@@ -106,7 +106,7 @@ export default function Sidebar() {
           return (
             <NavLink
               key={item.to}
-              to={item.alias || item.to}
+              to={item.to}
               end={item.to === '/'}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
