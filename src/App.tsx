@@ -25,6 +25,7 @@ import ProductForm from './modules/inventory/ProductForm'
 import RecipeBuilder from './modules/inventory/RecipeBuilder'
 import CostCalculator from './modules/inventory/CostCalculator'
 import StoreFront from './modules/store/StoreFront'
+import StoreManager from './modules/store/StoreManager'
 import Checkout from './modules/store/Checkout'
 import ComingSoon from './components/ComingSoon'
 
@@ -73,6 +74,9 @@ export default function App() {
 
           {/* Wholesale — Week 11 */}
           <Route path="/wholesale" element={<ComingSoon module="Wholesale" episode={11} />} />
+
+          {/* Store manager — admin view of the storefront */}
+          <Route path="/store-manager" element={<StoreManager />} />
 
           {/* Customers / CRM — Week 7 */}
           <Route path="/customers" element={<ComingSoon module="Customers" episode={7} />} />

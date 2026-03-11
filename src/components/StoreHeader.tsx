@@ -10,7 +10,7 @@
  */
 
 import { Link } from 'react-router-dom'
-import { Flame, ShoppingBag } from 'lucide-react'
+import { Flame, ShoppingBag, LayoutDashboard } from 'lucide-react'
 import { useCartStore } from '../lib/store'
 import ThemeToggle from './ThemeToggle'
 
@@ -32,8 +32,15 @@ export default function StoreHeader({ onCartOpen }: StoreHeaderProps) {
             <span className="text-lg font-bold text-heading">Flame Stack</span>
           </Link>
 
-          {/* Right side: theme toggle + cart */}
+          {/* Right side: admin link + theme toggle + cart */}
           <div className="flex items-center gap-4">
+            <Link
+              to="/"
+              className="p-2 rounded-lg text-muted hover:text-heading hover:bg-card-hover transition-colors"
+              title="Back to Dashboard"
+            >
+              <LayoutDashboard className="w-4 h-4" />
+            </Link>
             <div className="hidden sm:block">
               <ThemeToggle />
             </div>

@@ -58,7 +58,7 @@ const navItems = [
   { to: '/wholesale', icon: Building2, label: 'Wholesale', built: false, episode: 11 },
 
   // --- Sales Channels ---
-  { to: '/store', icon: ShoppingCart, label: 'Store', built: true },
+  { to: '/store-manager', icon: ShoppingCart, label: 'Store', built: true },
 
   // --- AI & Admin ---
   { to: '/customers', icon: Users, label: 'Customers', built: false, episode: 7 },
