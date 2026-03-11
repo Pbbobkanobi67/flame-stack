@@ -19,7 +19,7 @@ import type { Product, OrderItem } from '../types'
 
 // Demo products — generic widgets so we don't expose any real business data.
 // Replace these with your own products once you connect to Supabase.
-// Images use picsum.photos (free stock photos) as placeholders.
+// Images are branded SVGs in /public/products/.
 const DEMO_PRODUCTS: Product[] = [
   {
     id: '1',
@@ -29,7 +29,7 @@ const DEMO_PRODUCTS: Product[] = [
     cost: 3.50,
     sku: 'WDG-001',
     category: 'Widgets',
-    image_url: 'https://picsum.photos/seed/widget-alpha/400/400',
+    image_url: '/products/widget-alpha.svg',
     stock_quantity: 3,
     low_stock_threshold: 5,
     is_active: true,
@@ -44,7 +44,7 @@ const DEMO_PRODUCTS: Product[] = [
     cost: 3.40,
     sku: 'WDG-002',
     category: 'Widgets',
-    image_url: 'https://picsum.photos/seed/widget-bravo/400/400',
+    image_url: '/products/widget-bravo.svg',
     stock_quantity: 31,
     low_stock_threshold: 5,
     is_active: true,
@@ -59,7 +59,7 @@ const DEMO_PRODUCTS: Product[] = [
     cost: 3.50,
     sku: 'WDG-003',
     category: 'Widgets',
-    image_url: 'https://picsum.photos/seed/widget-charlie/400/400',
+    image_url: '/products/widget-charlie.svg',
     stock_quantity: 7,
     low_stock_threshold: 5,
     is_active: true,
@@ -74,7 +74,7 @@ const DEMO_PRODUCTS: Product[] = [
     cost: 3.47,
     sku: 'WDG-004',
     category: 'Widgets',
-    image_url: 'https://picsum.photos/seed/widget-delta/400/400',
+    image_url: '/products/widget-delta.svg',
     stock_quantity: 0,
     low_stock_threshold: 5,
     is_active: true,
@@ -89,7 +89,7 @@ const DEMO_PRODUCTS: Product[] = [
     cost: 3.30,
     sku: 'WDG-005',
     category: 'Widgets',
-    image_url: 'https://picsum.photos/seed/widget-echo/400/400',
+    image_url: '/products/widget-echo.svg',
     stock_quantity: 21,
     low_stock_threshold: 5,
     is_active: true,
@@ -104,7 +104,7 @@ const DEMO_PRODUCTS: Product[] = [
     cost: 3.32,
     sku: 'WDG-006',
     category: 'Widgets',
-    image_url: 'https://picsum.photos/seed/widget-foxtrot/400/400',
+    image_url: '/products/widget-foxtrot.svg',
     stock_quantity: 12,
     low_stock_threshold: 5,
     is_active: true,
