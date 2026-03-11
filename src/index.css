@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+/*
+ * Flame Stack Brand Colors
+ *
+ * The dark theme with orange/amber flame gradients matches the YouTube channel branding.
+ * Primary gradient: #FF6B35 (warm orange) → #FFD60A (bright amber)
+ * Background: Deep charcoal/near-black tones
+ *
+ * YouTube Episode: Week 3 — "Build a Shopify Alternative With Claude Code"
+ */
+
+@theme {
+  --color-flame-500: #FF6B35;
+  --color-flame-400: #FF8C5A;
+  --color-flame-300: #FFAD80;
+  --color-amber-500: #FFD60A;
+  --color-amber-400: #FFE04A;
+  --color-surface-900: #0F0F0F;
+  --color-surface-800: #1A1A2E;
+  --color-surface-700: #252540;
+  --color-surface-600: #2D2D4A;
+  --color-danger-500: #EF4444;
+  --color-success-500: #22C55E;
+  --color-info-500: #3B82F6;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-surface-900);
+  color: #F5F5F5;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+}
