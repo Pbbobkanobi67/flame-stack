@@ -52,7 +52,7 @@ export default function CostCalculator() {
         action={
           <button
             onClick={() => navigate('/inventory')}
-            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-muted hover:text-heading transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back
@@ -62,42 +62,42 @@ export default function CostCalculator() {
 
       {/* Summary cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div className="bg-surface-800 border border-surface-600 rounded-xl p-4">
-          <span className="text-xs text-gray-400 uppercase">Revenue Potential</span>
-          <p className="text-2xl font-bold text-white mt-1">
+        <div className="bg-card border border-default rounded-xl p-4">
+          <span className="text-xs text-muted uppercase">Revenue Potential</span>
+          <p className="text-2xl font-bold text-heading mt-1">
             ${totalRevenuePotential.toFixed(2)}
           </p>
-          <p className="text-xs text-gray-500 mt-1">If all current stock sells</p>
+          <p className="text-xs text-faint mt-1">If all current stock sells</p>
         </div>
-        <div className="bg-surface-800 border border-surface-600 rounded-xl p-4">
-          <span className="text-xs text-gray-400 uppercase">Cost Basis</span>
-          <p className="text-2xl font-bold text-gray-300 mt-1">
+        <div className="bg-card border border-default rounded-xl p-4">
+          <span className="text-xs text-muted uppercase">Cost Basis</span>
+          <p className="text-2xl font-bold text-body mt-1">
             ${totalCostBasis.toFixed(2)}
           </p>
-          <p className="text-xs text-gray-500 mt-1">Total invested in inventory</p>
+          <p className="text-xs text-faint mt-1">Total invested in inventory</p>
         </div>
-        <div className="bg-surface-800 border border-surface-600 rounded-xl p-4">
-          <span className="text-xs text-gray-400 uppercase">Total Profit</span>
+        <div className="bg-card border border-default rounded-xl p-4">
+          <span className="text-xs text-muted uppercase">Total Profit</span>
           <p className="text-2xl font-bold text-success-500 mt-1">
             ${totalProfit.toFixed(2)}
           </p>
-          <p className="text-xs text-gray-500 mt-1">If all current stock sells</p>
+          <p className="text-xs text-faint mt-1">If all current stock sells</p>
         </div>
-        <div className="bg-surface-800 border border-surface-600 rounded-xl p-4">
-          <span className="text-xs text-gray-400 uppercase">Avg Margin</span>
+        <div className="bg-card border border-default rounded-xl p-4">
+          <span className="text-xs text-muted uppercase">Avg Margin</span>
           <p className="text-2xl font-bold text-flame-400 mt-1">
             {avgMargin.toFixed(1)}%
           </p>
-          <p className="text-xs text-gray-500 mt-1">Across all products</p>
+          <p className="text-xs text-faint mt-1">Across all products</p>
         </div>
       </div>
 
       {/* Product profitability table */}
-      <div className="bg-surface-800 border border-surface-600 rounded-xl overflow-hidden">
+      <div className="bg-card border border-default rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-gray-400 bg-surface-700">
+              <tr className="text-left text-muted bg-table-header">
                 <th className="px-4 py-3 font-medium">Product</th>
                 <th className="px-4 py-3 font-medium text-right">Price</th>
                 <th className="px-4 py-3 font-medium text-right">Cost</th>
@@ -116,16 +116,16 @@ export default function CostCalculator() {
                 return (
                   <tr
                     key={product.id}
-                    className="border-b border-surface-700 hover:bg-surface-700/50 transition-colors"
+                    className="border-b border-subtle hover:bg-card-hover transition-colors"
                   >
                     <td className="px-4 py-3">
-                      <div className="text-white font-medium">{product.name}</div>
-                      <div className="text-gray-500 text-xs">{product.sku}</div>
+                      <div className="text-heading font-medium">{product.name}</div>
+                      <div className="text-faint text-xs">{product.sku}</div>
                     </td>
-                    <td className="px-4 py-3 text-right text-white">
+                    <td className="px-4 py-3 text-right text-heading">
                       ${product.price.toFixed(2)}
                     </td>
-                    <td className="px-4 py-3 text-right text-gray-400">
+                    <td className="px-4 py-3 text-right text-muted">
                       ${product.cost.toFixed(2)}
                     </td>
                     <td className="px-4 py-3 text-right text-success-500 font-medium">
@@ -153,7 +153,7 @@ export default function CostCalculator() {
                         </span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-right text-gray-300">
+                    <td className="px-4 py-3 text-right text-body">
                       {product.stock_quantity}
                     </td>
                     <td className="px-4 py-3 text-right text-success-500 font-bold">

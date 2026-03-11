@@ -103,7 +103,7 @@ export default function RecipeBuilder() {
   const margin = salePrice > 0 ? (profit / salePrice) * 100 : 0
 
   const inputClass =
-    'w-full px-3 py-2 bg-surface-700 border border-surface-600 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-flame-500 transition-colors'
+    'w-full px-3 py-2 bg-input border border-default rounded-lg text-sm text-heading placeholder:text-faint focus:outline-none focus:border-flame-500 transition-colors'
 
   return (
     <div className="max-w-3xl">
@@ -113,7 +113,7 @@ export default function RecipeBuilder() {
         action={
           <button
             onClick={() => navigate('/inventory')}
-            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-muted hover:text-heading transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back
@@ -122,21 +122,21 @@ export default function RecipeBuilder() {
       />
 
       {/* Cost summary bar */}
-      <div className="bg-surface-800 border border-surface-600 rounded-xl p-4 mb-6 flex items-center gap-6">
+      <div className="bg-card border border-default rounded-xl p-4 mb-6 flex items-center gap-6">
         <div>
-          <span className="text-xs text-gray-400 uppercase">Total Cost</span>
-          <p className="text-xl font-bold text-white">${totalCost.toFixed(2)}</p>
+          <span className="text-xs text-muted uppercase">Total Cost</span>
+          <p className="text-xl font-bold text-heading">${totalCost.toFixed(2)}</p>
         </div>
         <div>
-          <span className="text-xs text-gray-400 uppercase">Sale Price</span>
-          <p className="text-xl font-bold text-white">${salePrice.toFixed(2)}</p>
+          <span className="text-xs text-muted uppercase">Sale Price</span>
+          <p className="text-xl font-bold text-heading">${salePrice.toFixed(2)}</p>
         </div>
         <div>
-          <span className="text-xs text-gray-400 uppercase">Profit</span>
+          <span className="text-xs text-muted uppercase">Profit</span>
           <p className="text-xl font-bold text-success-500">${profit.toFixed(2)}</p>
         </div>
         <div>
-          <span className="text-xs text-gray-400 uppercase">Margin</span>
+          <span className="text-xs text-muted uppercase">Margin</span>
           <p
             className={`text-xl font-bold ${
               margin >= 50 ? 'text-success-500' : margin >= 25 ? 'text-amber-500' : 'text-danger-500'
@@ -148,15 +148,15 @@ export default function RecipeBuilder() {
       </div>
 
       {/* Materials table */}
-      <div className="bg-surface-800 border border-surface-600 rounded-xl p-5">
+      <div className="bg-card border border-default rounded-xl p-5">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-white font-semibold flex items-center gap-2">
+          <h2 className="text-heading font-semibold flex items-center gap-2">
             <FlaskConical className="w-4 h-4 text-flame-500" />
             Materials
           </h2>
           <button
             onClick={addItem}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-surface-700 text-gray-300 rounded-lg hover:bg-surface-600 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-card-hover text-body rounded-lg hover:bg-badge transition-colors"
           >
             <Plus className="w-3.5 h-3.5" />
             Add Material
@@ -165,7 +165,7 @@ export default function RecipeBuilder() {
 
         <div className="space-y-3">
           {/* Column headers */}
-          <div className="grid grid-cols-12 gap-3 text-xs text-gray-400 uppercase px-1">
+          <div className="grid grid-cols-12 gap-3 text-xs text-muted uppercase px-1">
             <div className="col-span-4">Material</div>
             <div className="col-span-2">Quantity</div>
             <div className="col-span-2">Unit</div>
@@ -222,13 +222,13 @@ export default function RecipeBuilder() {
                   className={inputClass}
                 />
               </div>
-              <div className="col-span-1 text-right text-sm text-gray-300 font-medium">
+              <div className="col-span-1 text-right text-sm text-body font-medium">
                 ${(item.quantity * item.cost_per_unit).toFixed(2)}
               </div>
               <div className="col-span-1 text-right">
                 <button
                   onClick={() => removeItem(item.id)}
-                  className="p-1.5 rounded-lg text-gray-400 hover:text-danger-500 hover:bg-danger-500/10 transition-colors"
+                  className="p-1.5 rounded-lg text-muted hover:text-danger-500 hover:bg-danger-500/10 transition-colors"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>

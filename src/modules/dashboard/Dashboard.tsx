@@ -59,11 +59,11 @@ export default function Dashboard() {
 
       {/* Low stock alerts */}
       {lowStockItems.length > 0 && (
-        <div className="bg-surface-800 border border-surface-600 rounded-xl p-5 mb-8">
+        <div className="bg-card border border-default rounded-xl p-5 mb-8">
           <h2 className="text-lg font-semibold text-amber-500 flex items-center gap-2 mb-4">
             <AlertTriangle className="w-5 h-5" />
             Low Stock Alert
-            <span className="text-sm font-normal text-gray-400">
+            <span className="text-sm font-normal text-muted">
               {lowStockItems.length} items
             </span>
           </h2>
@@ -71,11 +71,11 @@ export default function Dashboard() {
             {lowStockItems.map((product) => (
               <div
                 key={product.id}
-                className="flex items-center justify-between py-2 px-3 rounded-lg bg-surface-700"
+                className="flex items-center justify-between py-2 px-3 rounded-lg bg-card-hover"
               >
                 <div>
-                  <span className="text-white font-medium">{product.name}</span>
-                  <span className="text-gray-400 text-sm ml-2">{product.sku}</span>
+                  <span className="text-heading font-medium">{product.name}</span>
+                  <span className="text-muted text-sm ml-2">{product.sku}</span>
                 </div>
                 <span
                   className={`text-sm font-bold ${
@@ -91,12 +91,12 @@ export default function Dashboard() {
       )}
 
       {/* Quick product overview table */}
-      <div className="bg-surface-800 border border-surface-600 rounded-xl p-5">
-        <h2 className="text-lg font-semibold text-white mb-4">Product Overview</h2>
+      <div className="bg-card border border-default rounded-xl p-5">
+        <h2 className="text-lg font-semibold text-heading mb-4">Product Overview</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-gray-400 border-b border-surface-600">
+              <tr className="text-left text-muted border-b border-default">
                 <th className="pb-3 font-medium">Product</th>
                 <th className="pb-3 font-medium">SKU</th>
                 <th className="pb-3 font-medium text-right">Price</th>
@@ -105,13 +105,13 @@ export default function Dashboard() {
                 <th className="pb-3 font-medium text-right">Stock</th>
               </tr>
             </thead>
-            <tbody className="text-gray-300">
+            <tbody className="text-body">
               {products.map((product) => {
                 const margin = ((product.price - product.cost) / product.price * 100).toFixed(0)
                 return (
-                  <tr key={product.id} className="border-b border-surface-700">
-                    <td className="py-3 text-white font-medium">{product.name}</td>
-                    <td className="py-3 text-gray-400">{product.sku}</td>
+                  <tr key={product.id} className="border-b border-subtle">
+                    <td className="py-3 text-heading font-medium">{product.name}</td>
+                    <td className="py-3 text-muted">{product.sku}</td>
                     <td className="py-3 text-right">${product.price.toFixed(2)}</td>
                     <td className="py-3 text-right">${product.cost.toFixed(2)}</td>
                     <td className="py-3 text-right text-success-500">{margin}%</td>

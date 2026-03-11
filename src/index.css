@@ -1,34 +1,70 @@
 @import "tailwindcss";
 
 /*
- * Flame Stack Brand Colors
+ * Flame Stack Theme System
  *
- * The dark theme with orange/amber flame gradients matches the YouTube channel branding.
- * Primary gradient: #FF6B35 (warm orange) → #FFD60A (bright amber)
- * Background: Deep charcoal/near-black tones
+ * Uses CSS custom properties (variables) so the entire app can switch
+ * between light and dark themes by changing one attribute: data-theme on <html>.
+ *
+ * Brand colors (flame orange, amber) stay the same in both themes.
+ * Only the background, text, and border colors change.
  *
  * YouTube Episode: Week 3 — "Build a Shopify Alternative With Claude Code"
  */
 
+/* Brand colors — constant across all themes */
 @theme {
   --color-flame-500: #FF6B35;
   --color-flame-400: #FF8C5A;
   --color-flame-300: #FFAD80;
   --color-amber-500: #FFD60A;
   --color-amber-400: #FFE04A;
-  --color-surface-900: #0F0F0F;
-  --color-surface-800: #1A1A2E;
-  --color-surface-700: #252540;
-  --color-surface-600: #2D2D4A;
   --color-danger-500: #EF4444;
   --color-success-500: #22C55E;
   --color-info-500: #3B82F6;
 }
 
+/* ---- LIGHT THEME (default) ---- */
+:root {
+  --bg-page: #F8F9FA;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F3F4F6;
+  --bg-sidebar: #FFFFFF;
+  --bg-input: #FFFFFF;
+  --bg-table-header: #F3F4F6;
+  --bg-badge: #F3F4F6;
+  --text-heading: #111827;
+  --text-body: #374151;
+  --text-muted: #6B7280;
+  --text-faint: #9CA3AF;
+  --border-default: #E5E7EB;
+  --border-subtle: #F3F4F6;
+  --overlay-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* ---- DARK THEME ---- */
+[data-theme="dark"] {
+  --bg-page: #0F0F0F;
+  --bg-card: #1A1A2E;
+  --bg-card-hover: #252540;
+  --bg-sidebar: #1A1A2E;
+  --bg-input: #252540;
+  --bg-table-header: #252540;
+  --bg-badge: #252540;
+  --text-heading: #F5F5F5;
+  --text-body: #D1D5DB;
+  --text-muted: #9CA3AF;
+  --text-faint: #6B7280;
+  --border-default: #2D2D4A;
+  --border-subtle: #252540;
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+}
+
+/* ---- BASE STYLES ---- */
 body {
   margin: 0;
-  background-color: var(--color-surface-900);
-  color: #F5F5F5;
+  background-color: var(--bg-page);
+  color: var(--text-body);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
@@ -36,3 +72,27 @@ body {
   min-height: 100vh;
   display: flex;
 }
+
+/* ---- UTILITY CLASSES ---- */
+/* Background utilities */
+.bg-page { background-color: var(--bg-page); }
+.bg-card { background-color: var(--bg-card); }
+.bg-card-hover { background-color: var(--bg-card-hover); }
+.bg-sidebar { background-color: var(--bg-sidebar); }
+.bg-input { background-color: var(--bg-input); }
+.bg-table-header { background-color: var(--bg-table-header); }
+.bg-badge { background-color: var(--bg-badge); }
+
+/* Text utilities */
+.text-heading { color: var(--text-heading); }
+.text-body { color: var(--text-body); }
+.text-muted { color: var(--text-muted); }
+.text-faint { color: var(--text-faint); }
+
+/* Border utilities */
+.border-default { border-color: var(--border-default); }
+.border-subtle { border-color: var(--border-subtle); }
+
+/* Hover utilities */
+.hover\:bg-card-hover:hover { background-color: var(--bg-card-hover); }
+.hover\:text-heading:hover { color: var(--text-heading); }

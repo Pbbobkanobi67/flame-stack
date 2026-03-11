@@ -88,8 +88,8 @@ export default function ProductForm() {
 
   // Shared CSS for input fields — keeps the form consistent
   const inputClass =
-    'w-full px-3 py-2.5 bg-surface-700 border border-surface-600 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-flame-500 transition-colors'
-  const labelClass = 'block text-sm font-medium text-gray-300 mb-1.5'
+    'w-full px-3 py-2.5 bg-input border border-default rounded-lg text-sm text-heading placeholder:text-faint focus:outline-none focus:border-flame-500 transition-colors'
+  const labelClass = 'block text-sm font-medium text-body mb-1.5'
 
   return (
     <div className="max-w-2xl">
@@ -99,7 +99,7 @@ export default function ProductForm() {
         action={
           <button
             onClick={() => navigate('/inventory')}
-            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-muted hover:text-heading transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back
@@ -109,8 +109,8 @@ export default function ProductForm() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Basic info section */}
-        <div className="bg-surface-800 border border-surface-600 rounded-xl p-5 space-y-4">
-          <h2 className="text-white font-semibold">Basic Information</h2>
+        <div className="bg-card border border-default rounded-xl p-5 space-y-4">
+          <h2 className="text-heading font-semibold">Basic Information</h2>
 
           <div>
             <label className={labelClass}>Product Name</label>
@@ -164,8 +164,8 @@ export default function ProductForm() {
         </div>
 
         {/* Pricing section */}
-        <div className="bg-surface-800 border border-surface-600 rounded-xl p-5 space-y-4">
-          <h2 className="text-white font-semibold">Pricing</h2>
+        <div className="bg-card border border-default rounded-xl p-5 space-y-4">
+          <h2 className="text-heading font-semibold">Pricing</h2>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -196,8 +196,8 @@ export default function ProductForm() {
 
           {/* Live margin preview */}
           {price && cost && (
-            <div className="bg-surface-700 rounded-lg p-3 text-sm">
-              <span className="text-gray-400">Profit margin: </span>
+            <div className="bg-card-hover rounded-lg p-3 text-sm">
+              <span className="text-muted">Profit margin: </span>
               <span className="text-success-500 font-bold">
                 {(
                   ((parseFloat(price) - parseFloat(cost)) / parseFloat(price)) *
@@ -205,7 +205,7 @@ export default function ProductForm() {
                 ).toFixed(1)}
                 %
               </span>
-              <span className="text-gray-400 ml-3">Profit per unit: </span>
+              <span className="text-muted ml-3">Profit per unit: </span>
               <span className="text-success-500 font-bold">
                 ${(parseFloat(price) - parseFloat(cost)).toFixed(2)}
               </span>
@@ -214,8 +214,8 @@ export default function ProductForm() {
         </div>
 
         {/* Stock section */}
-        <div className="bg-surface-800 border border-surface-600 rounded-xl p-5 space-y-4">
-          <h2 className="text-white font-semibold">Stock</h2>
+        <div className="bg-card border border-default rounded-xl p-5 space-y-4">
+          <h2 className="text-heading font-semibold">Stock</h2>
 
           <div className="grid grid-cols-2 gap-4">
             <div>

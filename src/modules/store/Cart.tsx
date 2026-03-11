@@ -44,21 +44,22 @@ export default function Cart({ isOpen, onClose }: CartProps) {
     <>
       {/* Dark overlay behind the cart */}
       <div
-        className="fixed inset-0 bg-black/50 z-40"
+        className="fixed inset-0 z-40"
+        style={{ backgroundColor: 'var(--overlay-bg)' }}
         onClick={onClose}
       />
 
       {/* Cart panel — slides in from the right */}
-      <div className="fixed right-0 top-0 bottom-0 w-full max-w-md bg-surface-800 border-l border-surface-600 z-50 flex flex-col">
+      <div className="fixed right-0 top-0 bottom-0 w-full max-w-md bg-card border-l border-default z-50 flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-surface-600">
-          <h2 className="text-white font-semibold flex items-center gap-2">
+        <div className="flex items-center justify-between p-4 border-b border-default">
+          <h2 className="text-heading font-semibold flex items-center gap-2">
             <ShoppingBag className="w-5 h-5 text-flame-500" />
             Shopping Cart
           </h2>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-surface-700 transition-colors"
+            className="p-1.5 rounded-lg text-muted hover:text-heading hover:bg-card-hover transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -67,7 +68,7 @@ export default function Cart({ isOpen, onClose }: CartProps) {
         {/* Cart items */}
         <div className="flex-1 overflow-auto p-4">
           {items.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-gray-500">
+            <div className="flex flex-col items-center justify-center h-full text-faint">
               <ShoppingBag className="w-12 h-12 mb-3" />
               <p className="text-sm">Your cart is empty</p>
             </div>
@@ -76,11 +77,11 @@ export default function Cart({ isOpen, onClose }: CartProps) {
               {items.map((item) => (
                 <div
                   key={item.product_id}
-                  className="flex items-center gap-3 bg-surface-700 rounded-lg p-3"
+                  className="flex items-center gap-3 bg-card-hover rounded-lg p-3"
                 >
                   {/* Item details */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-white text-sm font-medium truncate">
+                    <p className="text-heading text-sm font-medium truncate">
                       {item.product_name}
                     </p>
                     <p className="text-flame-400 text-sm font-bold mt-0.5">
@@ -92,16 +93,16 @@ export default function Cart({ isOpen, onClose }: CartProps) {
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => updateQuantity(item.product_id, item.quantity - 1)}
-                      className="p-1 rounded bg-surface-600 text-gray-400 hover:text-white transition-colors"
+                      className="p-1 rounded bg-badge text-muted hover:text-heading transition-colors"
                     >
                       <Minus className="w-3.5 h-3.5" />
                     </button>
-                    <span className="text-white text-sm font-medium w-8 text-center">
+                    <span className="text-heading text-sm font-medium w-8 text-center">
                       {item.quantity}
                     </span>
                     <button
                       onClick={() => updateQuantity(item.product_id, item.quantity + 1)}
-                      className="p-1 rounded bg-surface-600 text-gray-400 hover:text-white transition-colors"
+                      className="p-1 rounded bg-badge text-muted hover:text-heading transition-colors"
                     >
                       <Plus className="w-3.5 h-3.5" />
                     </button>
@@ -110,7 +111,7 @@ export default function Cart({ isOpen, onClose }: CartProps) {
                   {/* Remove button */}
                   <button
                     onClick={() => removeFromCart(item.product_id)}
-                    className="p-1.5 rounded-lg text-gray-400 hover:text-danger-500 transition-colors"
+                    className="p-1.5 rounded-lg text-muted hover:text-danger-500 transition-colors"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -122,10 +123,10 @@ export default function Cart({ isOpen, onClose }: CartProps) {
 
         {/* Footer with total and checkout */}
         {items.length > 0 && (
-          <div className="p-4 border-t border-surface-600 space-y-3">
+          <div className="p-4 border-t border-default space-y-3">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-400">Subtotal</span>
-              <span className="text-white font-bold text-lg">${total.toFixed(2)}</span>
+              <span className="text-muted">Subtotal</span>
+              <span className="text-heading font-bold text-lg">${total.toFixed(2)}</span>
             </div>
             <button
               onClick={handleCheckout}
@@ -135,7 +136,7 @@ export default function Cart({ isOpen, onClose }: CartProps) {
             </button>
             <button
               onClick={clearCart}
-              className="w-full py-2 text-sm text-gray-400 hover:text-white transition-colors"
+              className="w-full py-2 text-sm text-muted hover:text-heading transition-colors"
             >
               Clear Cart
             </button>

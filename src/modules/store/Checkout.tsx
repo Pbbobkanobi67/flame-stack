@@ -37,7 +37,7 @@ export default function Checkout() {
         action={
           <button
             onClick={() => navigate('/store')}
-            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-sm text-muted hover:text-heading transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Store
@@ -46,8 +46,8 @@ export default function Checkout() {
       />
 
       {/* Order summary */}
-      <div className="bg-surface-800 border border-surface-600 rounded-xl p-5 mb-6">
-        <h2 className="text-white font-semibold mb-4">Order Summary</h2>
+      <div className="bg-card border border-default rounded-xl p-5 mb-6">
+        <h2 className="text-heading font-semibold mb-4">Order Summary</h2>
 
         <div className="space-y-3 mb-4">
           {items.map((item) => (
@@ -55,36 +55,36 @@ export default function Checkout() {
               key={item.product_id}
               className="flex items-center justify-between text-sm"
             >
-              <div className="text-gray-300">
+              <div className="text-body">
                 {item.product_name}
-                <span className="text-gray-500 ml-2">x{item.quantity}</span>
+                <span className="text-faint ml-2">x{item.quantity}</span>
               </div>
-              <span className="text-white font-medium">
+              <span className="text-heading font-medium">
                 ${(item.unit_price * item.quantity).toFixed(2)}
               </span>
             </div>
           ))}
         </div>
 
-        <div className="border-t border-surface-600 pt-3 space-y-2">
+        <div className="border-t border-default pt-3 space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="text-gray-400">Subtotal</span>
-            <span className="text-white">${subtotal.toFixed(2)}</span>
+            <span className="text-muted">Subtotal</span>
+            <span className="text-heading">${subtotal.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-gray-400">Tax (7.75%)</span>
-            <span className="text-white">${tax.toFixed(2)}</span>
+            <span className="text-muted">Tax (7.75%)</span>
+            <span className="text-heading">${tax.toFixed(2)}</span>
           </div>
-          <div className="flex justify-between text-base font-bold pt-2 border-t border-surface-600">
-            <span className="text-white">Total</span>
+          <div className="flex justify-between text-base font-bold pt-2 border-t border-default">
+            <span className="text-heading">Total</span>
             <span className="text-flame-400">${total.toFixed(2)}</span>
           </div>
         </div>
       </div>
 
       {/* Stripe checkout button (placeholder for Week 10) */}
-      <div className="bg-surface-800 border border-surface-600 rounded-xl p-5">
-        <div className="flex items-center gap-2 text-gray-400 text-sm mb-4">
+      <div className="bg-card border border-default rounded-xl p-5">
+        <div className="flex items-center gap-2 text-muted text-sm mb-4">
           <Lock className="w-4 h-4" />
           Payments processed securely by Stripe
         </div>

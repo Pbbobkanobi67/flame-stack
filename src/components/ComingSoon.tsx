@@ -137,8 +137,8 @@ export default function ComingSoon({ module, episode }: ComingSoonProps) {
       {/* Header */}
       <div className="text-center mb-8">
         <Construction className="w-12 h-12 text-flame-500 mx-auto mb-4" />
-        <h1 className="text-2xl font-bold text-white mb-2">{module}</h1>
-        <p className="text-gray-400">
+        <h1 className="text-2xl font-bold text-heading mb-2">{module}</h1>
+        <p className="text-muted">
           {info?.description || 'This module is coming soon.'}
         </p>
       </div>
@@ -155,15 +155,15 @@ export default function ComingSoon({ module, episode }: ComingSoonProps) {
 
       {/* Feature preview */}
       {info?.features && (
-        <div className="bg-surface-800 border border-surface-600 rounded-xl p-6">
-          <h2 className="text-white font-semibold mb-4">What you'll build:</h2>
+        <div className="bg-card border border-default rounded-xl p-6">
+          <h2 className="text-heading font-semibold mb-4">What you'll build:</h2>
           <ul className="space-y-3">
             {info.features.map((feature, i) => (
               <li key={i} className="flex items-start gap-3 text-sm">
-                <div className="w-5 h-5 rounded-full bg-surface-700 border border-surface-600 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-[10px] text-gray-500">{i + 1}</span>
+                <div className="w-5 h-5 rounded-full bg-card-hover border border-default flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="text-[10px] text-faint">{i + 1}</span>
                 </div>
-                <span className="text-gray-300">{feature}</span>
+                <span className="text-body">{feature}</span>
               </li>
             ))}
           </ul>

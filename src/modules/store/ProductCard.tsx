@@ -25,9 +25,9 @@ export default function ProductCard({ product }: ProductCardProps) {
   const isOutOfStock = product.stock_quantity === 0
 
   return (
-    <div className="bg-surface-800 border border-surface-600 rounded-xl overflow-hidden group hover:border-flame-500/50 transition-all">
+    <div className="bg-card border border-default rounded-xl overflow-hidden group hover:border-flame-500/50 transition-all">
       {/* Product image area */}
-      <div className="aspect-square bg-surface-700 flex items-center justify-center relative overflow-hidden">
+      <div className="aspect-square bg-card-hover flex items-center justify-center relative overflow-hidden">
         {product.image_url ? (
           <img
             src={product.image_url}
@@ -36,7 +36,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           />
         ) : (
           // Placeholder when no image is uploaded
-          <div className="flex flex-col items-center text-gray-500">
+          <div className="flex flex-col items-center text-faint">
             <Package className="w-12 h-12 mb-2" />
             <span className="text-xs">No image</span>
           </div>
@@ -54,8 +54,8 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       {/* Product details */}
       <div className="p-4">
-        <h3 className="text-white font-semibold text-sm">{product.name}</h3>
-        <p className="text-gray-400 text-xs mt-1 line-clamp-2">{product.description}</p>
+        <h3 className="text-heading font-semibold text-sm">{product.name}</h3>
+        <p className="text-muted text-xs mt-1 line-clamp-2">{product.description}</p>
 
         <div className="flex items-center justify-between mt-3">
           <span className="text-flame-400 font-bold text-lg">
@@ -67,7 +67,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             disabled={isOutOfStock}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
               isOutOfStock
-                ? 'bg-surface-600 text-gray-500 cursor-not-allowed'
+                ? 'bg-badge text-faint cursor-not-allowed'
                 : 'bg-flame-500 text-white hover:bg-flame-400'
             }`}
           >

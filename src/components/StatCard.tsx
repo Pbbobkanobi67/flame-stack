@@ -19,15 +19,15 @@ interface StatCardProps {
 const trendColors = {
   up: 'text-success-500',
   down: 'text-danger-500',
-  neutral: 'text-gray-400',
+  neutral: 'text-muted',
   warning: 'text-amber-500',
 }
 
 export default function StatCard({ label, value, icon: Icon, trend = 'neutral' }: StatCardProps) {
   return (
-    <div className="bg-surface-800 border border-surface-600 rounded-xl p-4">
+    <div className="bg-card border border-default rounded-xl p-4">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-xs text-gray-400 uppercase tracking-wide">{label}</span>
+        <span className="text-xs text-muted uppercase tracking-wide">{label}</span>
         <Icon className={`w-4 h-4 ${trendColors[trend]}`} />
       </div>
       <p className={`text-2xl font-bold ${trendColors[trend]}`}>{value}</p>

@@ -64,7 +64,7 @@ export default function ProductList() {
           <div className="flex gap-2">
             <Link
               to="/inventory/costs"
-              className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg bg-surface-700 text-gray-300 hover:bg-surface-600 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg bg-card-hover text-body hover:bg-badge transition-colors"
             >
               <Calculator className="w-4 h-4" />
               Cost Calculator
@@ -100,22 +100,22 @@ export default function ProductList() {
 
       {/* Search bar */}
       <div className="relative mb-4">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
         <input
           type="text"
           placeholder="Search products by name or SKU..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-10 pr-4 py-2.5 bg-surface-800 border border-surface-600 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-flame-500 transition-colors"
+          className="w-full pl-10 pr-4 py-2.5 bg-input border border-default rounded-lg text-sm text-heading placeholder:text-faint focus:outline-none focus:border-flame-500 transition-colors"
         />
       </div>
 
       {/* Product table */}
-      <div className="bg-surface-800 border border-surface-600 rounded-xl overflow-hidden">
+      <div className="bg-card border border-default rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-gray-400 bg-surface-700">
+              <tr className="text-left text-muted bg-table-header">
                 <th className="px-4 py-3 font-medium">Product</th>
                 <th className="px-4 py-3 font-medium">SKU</th>
                 <th className="px-4 py-3 font-medium text-right">Price</th>
@@ -138,19 +138,19 @@ export default function ProductList() {
                 return (
                   <tr
                     key={product.id}
-                    className="border-b border-surface-700 hover:bg-surface-700/50 transition-colors"
+                    className="border-b border-subtle hover:bg-card-hover transition-colors"
                   >
                     <td className="px-4 py-3">
-                      <div className="text-white font-medium">{product.name}</div>
-                      <div className="text-gray-500 text-xs mt-0.5">{product.category}</div>
+                      <div className="text-heading font-medium">{product.name}</div>
+                      <div className="text-faint text-xs mt-0.5">{product.category}</div>
                     </td>
-                    <td className="px-4 py-3 text-gray-400 font-mono text-xs">
+                    <td className="px-4 py-3 text-muted font-mono text-xs">
                       {product.sku}
                     </td>
-                    <td className="px-4 py-3 text-right text-white">
+                    <td className="px-4 py-3 text-right text-heading">
                       ${product.price.toFixed(2)}
                     </td>
-                    <td className="px-4 py-3 text-right text-gray-400">
+                    <td className="px-4 py-3 text-right text-muted">
                       ${product.cost.toFixed(2)}
                     </td>
                     <td className="px-4 py-3 text-right text-success-500 font-medium">
@@ -173,14 +173,14 @@ export default function ProductList() {
                       <div className="flex items-center justify-end gap-1">
                         <Link
                           to={`/inventory/${product.id}/edit`}
-                          className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-surface-600 transition-colors"
+                          className="p-1.5 rounded-lg text-muted hover:text-heading hover:bg-card-hover transition-colors"
                           title="Edit product"
                         >
                           <Pencil className="w-3.5 h-3.5" />
                         </Link>
                         <button
                           onClick={() => handleDelete(product.id, product.name)}
-                          className="p-1.5 rounded-lg text-gray-400 hover:text-danger-500 hover:bg-danger-500/10 transition-colors"
+                          className="p-1.5 rounded-lg text-muted hover:text-danger-500 hover:bg-danger-500/10 transition-colors"
                           title="Delete product"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -192,7 +192,7 @@ export default function ProductList() {
               })}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-4 py-12 text-center text-gray-500">
+                  <td colSpan={7} className="px-4 py-12 text-center text-faint">
                     {search
                       ? `No products match "${search}"`
                       : 'No products yet. Click "Add Product" to get started.'}

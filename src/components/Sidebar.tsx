@@ -1,7 +1,7 @@
 /**
  * Sidebar.tsx
  *
- * The navigation sidebar that appears on every page. This mirrors the
+ * The navigation sidebar that appears on every admin page. This mirrors the
  * full feature set of a real business management platform — comparable
  * to Shopify but without the $39/month price tag.
  *
@@ -35,6 +35,7 @@ import {
   Flame,
   Lock,
 } from 'lucide-react'
+import ThemeToggle from './ThemeToggle'
 
 // Each nav item: route, icon, label, and whether it's built yet
 const navItems = [
@@ -67,13 +68,13 @@ const navItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-56 bg-surface-800 border-r border-surface-600 flex flex-col shrink-0">
+    <aside className="w-56 bg-sidebar border-r border-default flex flex-col shrink-0">
       {/* App logo and name */}
-      <div className="p-4 border-b border-surface-600 flex items-center gap-2">
+      <div className="p-4 border-b border-default flex items-center gap-2">
         <Flame className="w-7 h-7 text-flame-500" />
         <div>
-          <h1 className="text-base font-bold text-white leading-tight">Flame Stack</h1>
-          <p className="text-[11px] text-gray-400 leading-tight">Business Suite</p>
+          <h1 className="text-base font-bold text-heading leading-tight">Flame Stack</h1>
+          <p className="text-[11px] text-muted leading-tight">Business Suite</p>
         </div>
       </div>
 
@@ -89,8 +90,8 @@ export default function Sidebar() {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors group ${
                     isActive
-                      ? 'bg-surface-700 text-gray-400'
-                      : 'text-gray-500 hover:text-gray-400 hover:bg-surface-700/50'
+                      ? 'bg-card-hover text-muted'
+                      : 'text-faint hover:text-muted hover:bg-card-hover'
                   }`
                 }
               >
@@ -111,7 +112,7 @@ export default function Sidebar() {
                 `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
                   isActive
                     ? 'bg-flame-500/15 text-flame-400 font-medium'
-                    : 'text-gray-400 hover:text-white hover:bg-surface-700'
+                    : 'text-muted hover:text-heading hover:bg-card-hover'
                 }`
               }
             >
@@ -122,9 +123,10 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Footer */}
-      <div className="p-4 border-t border-surface-600">
-        <p className="text-[11px] text-gray-500 text-center">
+      {/* Footer with theme toggle */}
+      <div className="p-4 border-t border-default space-y-3">
+        <ThemeToggle />
+        <p className="text-[11px] text-faint text-center">
           Built with Claude Code
         </p>
       </div>
